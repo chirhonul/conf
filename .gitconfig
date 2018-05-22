@@ -1,0 +1,6 @@
+[user]
+	signingkey = 4600E7D2101EA2E4
+	email = chinul@disroot.org
+	name = Chi Nul
+[commit]
+	gpgsign = true
