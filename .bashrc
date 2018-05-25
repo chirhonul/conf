@@ -98,5 +98,5 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:/usr/local/go/bin:~/bin:~/src/github.com/chirhonul/tools
+export PATH=$PATH:/usr/local/go/bin:/usr/local/docker:~/bin:~/src/github.com/chirhonul/tools
 export GOPATH=$HOME
