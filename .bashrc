@@ -98,5 +98,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:/sbin:/usr/local/go/bin:/usr/local/docker:~/bin:~/src/github.com/chirhonul/tools
+export PATH=$PATH:/sbin:/usr/local/go/bin:/usr/local/docker:/usr/lib/jvm/jdk1.8.0_131:~/bin:~/src/github.com/chirhonul/tools
 export GOPATH=$HOME
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_131
