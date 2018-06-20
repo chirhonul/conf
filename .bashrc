@@ -103,3 +103,5 @@ export GOPATH=$HOME
 export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_172
 
 export NMON=lmtk
+
+export GPG_TTY=$(tty)
