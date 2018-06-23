@@ -1,0 +1,8 @@
+Host s0
+  HostName 145.249.106.170
+  IdentityFile ~/.ssh/s0_id_rsa
+  User amnesia
+  Port 2285
+  BatchMode yes
+  CheckHostIP yes
+  # ForwardX11 yes
