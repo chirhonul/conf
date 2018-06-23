@@ -138,6 +138,7 @@ chatnets = {
 
 channels = (
   { name = "#bitcoin-core-dev"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#bitcoin-dev"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#bisq"; chatnet = "freenode"; autojoin = "Yes"; },
 
   { name = "#lobby"; chatnet = "EsperNet"; autojoin = "No"; },
@@ -412,6 +413,7 @@ ignores = (
       level = "JOINS PARTS QUITS";
       channels = (
         "#bitcoin-core-dev",
+        "#bitcoin-dev",
         "#bisq",
       )
     }
