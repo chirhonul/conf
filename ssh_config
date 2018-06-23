@@ -6,3 +6,11 @@ Host s0
   BatchMode yes
   CheckHostIP yes
   # ForwardX11 yes
+
+Host s1
+  HostName 213.252.247.2
+  IdentityFile ~/.ssh/s1_id_rsa
+  User amnesia
+  Port 2286
+  BatchMode yes
+  CheckHostIP yes
