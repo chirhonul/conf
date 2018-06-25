@@ -14,3 +14,11 @@ Host s1
   Port 2286
   BatchMode yes
   CheckHostIP yes
+
+Host s2
+  HostName 213.252.247.202
+  IdentityFile ~/.ssh/s2_id_rsa
+  User amnesia
+  Port 2285
+  BatchMode yes
+  CheckHostIP yes
