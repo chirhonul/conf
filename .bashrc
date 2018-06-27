@@ -105,3 +105,31 @@ export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_172
 export NMON=lmtk
 
 export GPG_TTY=$(tty)
+
+add_ssh() {
+  if [ $# -ne 2 ] ; then
+    echo "Usage: add_ssh keyfile passfile"
+    return 1
+  fi
+  if ssh-add -L | grep -q ${1}; then
+    return 0
+  fi
+  [ ! -e ${2} ] && {
+    echo "failing; no such pass file ${1}_pass.txt"
+    return 1
+  }
+  pass=$(cat $2)
+
+  echo "Adding SSH key for ${1}.."
+  expect << EOF
+    spawn ssh-add $1
+    expect "Enter passphrase"
+    send "$pass\r"
+    expect eof
+EOF
+}
+
+eval $(ssh-agent)
+add_ssh /mnt/keys/s0_id_rsa ~/docs/s0_id_rsa_pass.txt
+add_ssh /mnt/keys/s1_id_rsa ~/docs/s1_id_rsa_pass.txt
+add_ssh /mnt/keys/s2_id_rsa ~/docs/s2_id_rsa_pass.txt
