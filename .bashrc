@@ -106,11 +106,13 @@ export NMON=lmtk
 
 export GPG_TTY=$(tty)
 
+start_ssh_agent() {
+  ssh-agent -s > ~/.ssh-agent.conf 2>/dev/null
+  source ~/.ssh-agent.conf > /dev/null
+}
+
+# usage: add_ssh <keyfile> <passfile>
 add_ssh() {
-  if [ $# -ne 2 ] ; then
-    echo "Usage: add_ssh keyfile passfile"
-    return 1
-  fi
   if ssh-add -L | grep -q ${1}; then
     return 0
   fi
@@ -129,7 +131,39 @@ add_ssh() {
 EOF
 }
 
-eval $(ssh-agent)
-add_ssh /mnt/keys/s0_id_rsa ~/docs/s0_id_rsa_pass.txt
-add_ssh /mnt/keys/s1_id_rsa ~/docs/s1_id_rsa_pass.txt
-add_ssh /mnt/keys/s2_id_rsa ~/docs/s2_id_rsa_pass.txt
+add_ssh_keys() {
+  add_ssh /mnt/keys/s0_id_rsa ~/docs/s0_id_rsa_pass.txt
+  add_ssh /mnt/keys/s1_id_rsa ~/docs/s1_id_rsa_pass.txt
+  add_ssh /mnt/keys/s2_id_rsa ~/docs/s2_id_rsa_pass.txt
+}
+
+load_ssh_keys() {
+  [ -f ~/.ssh-agent.conf ] || {
+    # Agent was not running, so start it.
+    start_ssh_agent
+    add_ssh_keys
+    # ssh-add -t ${key_ttl} > /dev/null 2>&1
+    return 0
+  }
+  source ~/.ssh-agent.conf > /dev/null
+  ssh-add -l >/dev/null 2>&1
+  stat=$?
+  echo "listed keys in agent and got $?"
+  [ ${stat} -eq 0 ] && {
+    # The socket exists and it has one or more keys.
+    return 0
+  }
+  [ ${stat} -eq 1 ] && {
+    # The socket exists but it has no keys.
+    add_ssh_keys
+    # ssh-add -t ${key_ttl} >/dev/null 2>&1
+    return 0
+  }
+  # The socket was not there or was broken.
+  rm -f ${SSH_AUTH_SOCK} # from ~/.ssh-agent.conf sourced above
+  start_ssh_agent
+  ssh-add -t ${key_ttl} >/dev/null 2>&1
+}
+
+
+load_ssh_keys
