@@ -132,9 +132,8 @@ EOF
 }
 
 add_ssh_keys() {
-  add_ssh /mnt/keys/s0_id_rsa ~/docs/s0_id_rsa_pass.txt
-  add_ssh /mnt/keys/s1_id_rsa ~/docs/s1_id_rsa_pass.txt
   add_ssh /mnt/keys/s2_id_rsa ~/docs/s2_id_rsa_pass.txt
+  add_ssh /mnt/keys/s3_id_rsa ~/docs/s3_id_rsa_pass.txt
   add_ssh /mnt/keys/chirhonul_github0_id_rsa ~/docs/chirhonul_github0_id_rsa_pass.txt
 }
 
